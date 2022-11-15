@@ -55,6 +55,7 @@ class Polygon2Kattis:
         self.lang = lang
         self.verbose = verbose
         self.problem_data = ET.fromstringlist(self.package.open('problem.xml'))
+        self.testlib_path = Path(__file__).parent / 'testlib.h'
         
         self.out_path = self.force_mkdir(out_path)
         
@@ -63,12 +64,16 @@ class Polygon2Kattis:
         self.sample_data_path = self.add_folder(self.data_path, 'sample')
         self.secret_data_path = self.add_folder(self.data_path, 'secret')
         
+        self.check_type = ''
+        
     def force_mkdir(self, path):
         path.mkdir(parents=True, exist_ok=True)
         return path
         
-    def add_folder(self, path, subfolder):
-        return self.force_mkdir(path / subfolder)
+    def add_folder(self, path, *subfolders):
+        for subfolder in subfolders:
+            path = self.force_mkdir(path / subfolder)
+        return path
         
     def log(self, *args):
         if self.verbose:
@@ -177,7 +182,44 @@ class Polygon2Kattis:
                 self.log('Skip solution', path, f'of tag {tag}')
                 continue
             self.extract_package_member_to(path, sol_out_path / Path(path).name)
-
+            
+    def process_checker_validator_interactor(self):
+        self._process_checker()
+        self._process_validator()
+        
+    def _process_checker(self):
+        checker_tags = self.problem_data.findall('./assets//checker')
+        if len(checker_tags) == 0:
+            return 
+        checker_tag = checker_tags[0]
+        checker_name = checker_tag.get('name')
+        if checker_name is not None:
+            self.checker_type = checker_name
+            return 
+        else:
+            self.checker_type = 'custom'
+        source_tag = checker_tag.find('source')
+        source_path = source_tag.get('path')
+        checker_out_dir = self.add_folder(self.out_path, 'output_validators', 'checker')
+        self.extract_package_member_to(source_path, checker_out_dir / Path(source_path).name)
+        if 'cpp' in source_tag.get('type'):
+            shutil.copy(self.testlib_path, checker_out_dir)
+    
+    def _process_validator(self):
+        validator_tags = self.problem_data.findall('./assets/validators/validator')
+        if len(validator_tags) == 0:
+            return
+        validator_tag = validator_tags[0]
+        source_tag = validator_tag.find('source')
+        source_path = source_tag.get('path')
+        validator_out_dir = self.add_folder(self.out_path, 'input_validators', 'extracted_validator')
+        self.extract_package_member_to(source_path, validator_out_dir / Path(source_path).name)
+        if 'cpp' in source_tag.get('type'):
+            shutil.copy(self.testlib_path, validator_out_dir)
+            
+    def _process_interactor(self):
+        # TODO
+        pass
 
 def main():
     args = build_argparser().parse_args()
@@ -186,6 +228,7 @@ def main():
     p2k.process_statement()
     # p2k.process_tests()
     p2k.process_solutions()
+    p2k.process_checker_validator_interactor()
     
     p2k.log('done')
             
