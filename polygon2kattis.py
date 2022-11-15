@@ -45,22 +45,38 @@ def build_argparser():
                            action='store_true',
                            help='Print more messages for debugging purposes'
                            )
+    argparser.add_argument('--write-problem-yaml',
+                           action='store_true',
+                           help='Write the problem.yaml file. Default is off, to not overwrite the existing problem.yaml'
+                           )
+    argparser.add_argument('--license',
+                           choices=['unknown', 'public domain', 'cc0', 'cc by', 'cc by-sa', 'educational', 'permission'],
+                           help='Problem license',
+                           default='cc by-sa'
+                           )
     return argparser
 
 
 class Polygon2Kattis:
-    def __init__(self, package_zip_file, out_path: Path, lang: SupportedLanguage, verbose: bool):
+    def __init__(self,
+                 package_zip_file,
+                 out_dir: Path,
+                 lang: SupportedLanguage,
+                 verbose: bool,
+                 license: str
+                 ):
         self.package_zip_file = package_zip_file
         self.package = ZipFile(package_zip_file, 'r')
         self.lang = lang
         self.verbose = verbose
         self.problem_data = ET.fromstringlist(self.package.open('problem.xml'))
         self.testlib_path = Path(__file__).parent / 'testlib.h'
+        self.license = license
         
-        self.out_path = self.force_mkdir(out_path)
+        self.out_dir = self.force_mkdir(out_dir)
         
-        self.problem_statement_path = self.add_folder(self.out_path, 'problem_statement')
-        self.data_path = self.add_folder(self.out_path, 'data')
+        self.problem_statement_path = self.add_folder(self.out_dir, 'problem_statement')
+        self.data_path = self.add_folder(self.out_dir, 'data')
         self.sample_data_path = self.add_folder(self.data_path, 'sample')
         self.secret_data_path = self.add_folder(self.data_path, 'secret')
         
@@ -163,25 +179,25 @@ class Polygon2Kattis:
             
             dest_path = cur_sample_data_path if is_sample else cur_secret_data_path
             self.extract_package_member_to(input_filename, dest_path / f'{test_id}.in')
-            self.extract_package_member_to(input_filename, dest_path / f'{test_id}.ans')
+            self.extract_package_member_to(answer_filename, dest_path / f'{test_id}.ans')
             
     def process_solutions(self):
         self.log('Processing solutions')
         solution_tags = self.problem_data.findall('./assets/solutions/solution')
-        submission_path = self.out_path / 'submissions'
+        submission_path = self.out_dir / 'submissions'
         for solution_tag in solution_tags:
             tag = solution_tag.get('tag')
             path = solution_tag.find('source').get('path')
             if tag in ['accepted', 'main']:
-                sol_out_path = self.add_folder(submission_path, 'accepted')
+                sol_out_dir = self.add_folder(submission_path, 'accepted')
             elif tag == 'time-limit-exceeded':
-                sol_out_path = self.add_folder(submission_path, 'time_limit_exceed')
+                sol_out_dir = self.add_folder(submission_path, 'time_limit_exceed')
             elif tag == 'wrong-answer':
-                sol_out_path = self.add_folder(submission_path, 'wrong_answer')
+                sol_out_dir = self.add_folder(submission_path, 'wrong_answer')
             else:
                 self.log('Skip solution', path, f'of tag {tag}')
                 continue
-            self.extract_package_member_to(path, sol_out_path / Path(path).name)
+            self.extract_package_member_to(path, sol_out_dir / Path(path).name)
             
     def process_checker_validator_interactor(self):
         self._process_checker()
@@ -200,7 +216,7 @@ class Polygon2Kattis:
             self.checker_type = 'custom'
         source_tag = checker_tag.find('source')
         source_path = source_tag.get('path')
-        checker_out_dir = self.add_folder(self.out_path, 'output_validators', 'checker')
+        checker_out_dir = self.add_folder(self.out_dir, 'output_validators', 'checker')
         self.extract_package_member_to(source_path, checker_out_dir / Path(source_path).name)
         if 'cpp' in source_tag.get('type'):
             shutil.copy(self.testlib_path, checker_out_dir)
@@ -212,7 +228,7 @@ class Polygon2Kattis:
         validator_tag = validator_tags[0]
         source_tag = validator_tag.find('source')
         source_path = source_tag.get('path')
-        validator_out_dir = self.add_folder(self.out_path, 'input_validators', 'extracted_validator')
+        validator_out_dir = self.add_folder(self.out_dir, 'input_validators', 'extracted_validator')
         self.extract_package_member_to(source_path, validator_out_dir / Path(source_path).name)
         if 'cpp' in source_tag.get('type'):
             shutil.copy(self.testlib_path, validator_out_dir)
@@ -220,15 +236,42 @@ class Polygon2Kattis:
     def _process_interactor(self):
         # TODO
         pass
+    
+    def write_problem_yaml(self):
+        with open(self.out_dir / 'problem.yaml', 'w') as f:
+            print('source:', self.problem_data.get('url'), file=f)
+            print('license:', self.license, file=f)
+            print('limits:', file=f)
+            print('  time_multiplier: 2', file=f)
+            if 'custom' in self.checker_type:
+                print('validation:', self.checker_type, file=f)
+            elif 'std::' in self.checker_type:
+                if self.checker_type == 'std::rcmp4.cpp':
+                    print('validation:', file=f)
+                    print('  validator_flags: float_tolerance 1e-4', file=f)
+                if self.checker_type == 'std::rcmp6.cpp':
+                    print('validation:', file=f)
+                    print('  validator_flags: float_tolerance 1e-6', file=f)
+                if self.checker_type == 'std::rcmp9.cpp':
+                    print('validation:', file=f)
+                    print('  validator_flags: float_tolerance 1e-9', file=f)
 
 def main():
     args = build_argparser().parse_args()
     print(args)
-    p2k = Polygon2Kattis(args.package, args.out_dir, args.lang, args.verbose)
+    p2k = Polygon2Kattis(
+            package_zip_file=args.package,
+            out_dir=args.out_dir,
+            lang=args.lang,
+            verbose=args.verbose,
+            license=args.license
+            )
     p2k.process_statement()
-    # p2k.process_tests()
+    p2k.process_tests()
     p2k.process_solutions()
     p2k.process_checker_validator_interactor()
+    if args.write_problem_yaml:
+        p2k.write_problem_yaml()
     
     p2k.log('done')
             
