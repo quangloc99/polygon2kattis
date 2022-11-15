@@ -159,6 +159,24 @@ class Polygon2Kattis:
             dest_path = cur_sample_data_path if is_sample else cur_secret_data_path
             self.extract_package_member_to(input_filename, dest_path / f'{test_id}.in')
             self.extract_package_member_to(input_filename, dest_path / f'{test_id}.ans')
+            
+    def process_solutions(self):
+        self.log('Processing solutions')
+        solution_tags = self.problem_data.findall('./assets/solutions/solution')
+        submission_path = self.out_path / 'submissions'
+        for solution_tag in solution_tags:
+            tag = solution_tag.get('tag')
+            path = solution_tag.find('source').get('path')
+            if tag in ['accepted', 'main']:
+                sol_out_path = self.add_folder(submission_path, 'accepted')
+            elif tag == 'time-limit-exceeded':
+                sol_out_path = self.add_folder(submission_path, 'time_limit_exceed')
+            elif tag == 'wrong-answer':
+                sol_out_path = self.add_folder(submission_path, 'wrong_answer')
+            else:
+                self.log('Skip solution', path, f'of tag {tag}')
+                continue
+            self.extract_package_member_to(path, sol_out_path / Path(path).name)
 
 
 def main():
@@ -166,7 +184,8 @@ def main():
     print(args)
     p2k = Polygon2Kattis(args.package, args.out_dir, args.lang, args.verbose)
     p2k.process_statement()
-    p2k.process_tests()
+    # p2k.process_tests()
+    p2k.process_solutions()
     
     p2k.log('done')
             
