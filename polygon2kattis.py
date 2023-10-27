@@ -59,9 +59,9 @@ def build_argparser():
     argparser.add_argument('--test-generation-info',
                            action='store_true',
                            help=textwrap.dedent("""
-                           Generate information about test generation, for the purpose of reviewing.
-                           - The generators will be copied.
-                           - The test generation script will be generated.
+                           Generate information about test generation, for the purpose of reviewing:
+                           the generators will be copied,
+                           and the test generation script will be generated.
                            All the generated and copied file will be in the data folder.
                            """),
                            default=False
@@ -255,7 +255,7 @@ class Polygon2Kattis:
             if tag in ['accepted', 'main']:
                 sol_out_dir = self.add_folder(submission_path, 'accepted')
             elif tag == 'time-limit-exceeded':
-                sol_out_dir = self.add_folder(submission_path, 'time_limit_exceed')
+                sol_out_dir = self.add_folder(submission_path, 'time_limit_exceeded')
             elif tag == 'wrong-answer':
                 sol_out_dir = self.add_folder(submission_path, 'wrong_answer')
             else:
