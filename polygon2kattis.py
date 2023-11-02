@@ -1,3 +1,4 @@
+# pyrignt:  strict
 import argparse
 import shutil
 import textwrap
@@ -8,22 +9,37 @@ from zipfile import ZipFile
 
 
 @dataclass
-class SupportedLanguage:
+class NamedChoice:
     name: str
     short_name: str
     
     def __str__(self):
         return self.short_name
 
-ENGLISH_LANG = SupportedLanguage(name='english', short_name='en')
-VIETNAMESE_LANG = SupportedLanguage(name='vietnamese', short_name='vn')
+def gen_get_choice(list_name: str, valid_choises: list[NamedChoice]):
+    def get_choice(choice_name: str) -> NamedChoice:
+        for choice in valid_choises:
+            if choice.short_name == choice_name:
+                return choice
+        raise TypeError(f'{choice_name} is not a supported ${list_name}')
+    return get_choice
+
+ENGLISH_LANG = NamedChoice(name='english', short_name='en')
+VIETNAMESE_LANG = NamedChoice(name='vietnamese', short_name='vn')
 SUPPORTED_LANGUAGES=[ENGLISH_LANG, VIETNAMESE_LANG]
 
-def get_lang(short_name):
-    for lang in SUPPORTED_LANGUAGES:
-        if lang.short_name == short_name:
-            return lang
-    raise TypeError(f'{short_name} is not a supported language')
+get_lang = gen_get_choice('language', SUPPORTED_LANGUAGES)
+
+PART_MAP = {
+    "statement": NamedChoice('statement', 'statement'),
+    "tests": NamedChoice('tests', 'tests'),
+    "solutions": NamedChoice('solutions', 'solutions'),
+    "checker_validator_interactor": NamedChoice('checker_validator_interactor', 'checker_validator_interactor'),
+    "problem_yaml": NamedChoice('problem_yaml', 'problem_yaml'),
+}
+
+PARTS = list(PART_MAP.values())
+get_part  = gen_get_choice('part', PARTS)
     
 def build_argparser():
     argparser = argparse.ArgumentParser(description='Convert a Codeforces.Polygon full package to Kattis problem tool directory')
@@ -56,6 +72,12 @@ def build_argparser():
                            help='Problem license',
                            default='cc by-sa'
                            )
+    argparser.add_argument('--part',
+                           nargs='*',
+                           type=get_part,
+                           help=f'Parts to generate. Default is {",".join(map(lambda x: x.short_name, PARTS))}',
+                           default=PARTS
+                           )
     argparser.add_argument('--test-generation-info',
                            action='store_true',
                            help=textwrap.dedent("""
@@ -73,7 +95,7 @@ class Polygon2Kattis:
     def __init__(self,
                  package_zip_file,
                  out_dir: Path,
-                 lang: SupportedLanguage,
+                 lang: NamedChoice,
                  verbose: bool,
                  test_generation_info: bool,
                  license: str
@@ -307,6 +329,7 @@ class Polygon2Kattis:
     
     def write_problem_yaml(self):
         with open(self.out_dir / 'problem.yaml', 'w') as f:
+            self.log('writing problem.yaml')
             print('source:', self.problem_data.get('url'), file=f)
             print('license:', self.license, file=f)
             print('limits:', file=f)
@@ -326,7 +349,7 @@ class Polygon2Kattis:
 
 def main():
     args = build_argparser().parse_args()
-    print(args)
+    # print(args)
     p2k = Polygon2Kattis(
             package_zip_file=args.package,
             out_dir=args.out_dir,
@@ -335,12 +358,19 @@ def main():
             license=args.license,
             test_generation_info=args.test_generation_info
             )
-    p2k.process_statement()
-    p2k.process_tests()
-    p2k.process_solutions()
-    p2k.process_checker_validator_interactor()
-    if args.write_problem_yaml:
-        p2k.write_problem_yaml()
+    
+    print(args.part)
+    part_set: set[str] = set(x.short_name for x in args.part)
+    def has_part(part_name: NamedChoice | None) -> bool:
+        if part_name is None:
+            raise Exception('part_name can not be None')
+        return part_name.short_name in part_set
+
+    if has_part(PART_MAP.get('statement')): p2k.process_statement()
+    if has_part(PART_MAP.get('tests')): p2k.process_tests()
+    if has_part(PART_MAP.get('solutions')): p2k.process_solutions()
+    if has_part(PART_MAP.get('checker_validator_interactor')): p2k.process_checker_validator_interactor()
+    if has_part(PART_MAP.get('problem_yaml')): p2k.write_problem_yaml()
     
     p2k.log('done')
             
