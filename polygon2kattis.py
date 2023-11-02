@@ -159,8 +159,7 @@ class Polygon2Kattis:
             p = self.problem_statement_path / 'name.tex'
             if p.is_file():
                 problem_name = p.read_text().strip()
-                print(problem_name)
-                print(fr'\problemname{{ {problem_name} }}', file=out)
+                print(fr'\problemname{{ {problem_name} }}\n', file=out)
                 p.unlink()
                 
             p = self.problem_statement_path / 'legend.tex'
@@ -170,25 +169,25 @@ class Polygon2Kattis:
                 
             p = self.problem_statement_path / 'input.tex'
             if p.is_file():
-                print(r'\section*{Input}', file=out)
+                print(r'\section*{Input}\n', file=out)
                 print(p.read_text(), file=out)
                 p.unlink()
                 
             p = self.problem_statement_path / 'output.tex'
             if p.is_file():
-                print(r'\section*{Output}', file=out)
+                print(r'\section*{Output}\n', file=out)
                 print(p.read_text(), file=out)
                 p.unlink()
                 
             p = self.problem_statement_path / 'notes.tex'
             if p.is_file():
-                print(r'\section*{Explanation of the sample}', file=out)
+                print(r'\section*{Explanation of the sample}\n', file=out)
                 print(p.read_text(), file=out)
                 p.unlink()
                 
             p = self.problem_statement_path / 'scoring.tex'
             if p.is_file():
-                print(r'\section*{Scoring}', file=out)
+                print(r'\section*{Scoring}\n', file=out)
                 print(p.read_text(), file=out)
                 p.unlink()
                 
