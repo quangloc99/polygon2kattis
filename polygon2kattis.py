@@ -159,7 +159,7 @@ class Polygon2Kattis:
             p = self.problem_statement_path / 'name.tex'
             if p.is_file():
                 problem_name = p.read_text().strip()
-                print(fr'\problemname{{ {problem_name} }}', file=out)
+                print(fr'\problemname{{{problem_name.strip()}}}', file=out)
                 p.unlink()
                 
             p = self.problem_statement_path / 'legend.tex'
