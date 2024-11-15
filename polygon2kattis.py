@@ -181,7 +181,7 @@ class Polygon2Kattis:
                 
             p = self.problem_statement_path / 'notes.tex'
             if p.is_file():
-                print(r'\section*{Explanation of the sample}', file=out)
+                print(r'\section*{Sample Explanation}', file=out)
                 print(p.read_text(), file=out)
                 p.unlink()
                 
