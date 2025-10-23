@@ -1,0 +1,850 @@
+##########################
+# This file is copied from polygon.codeforces with some changes.
+# Namely the single quote `'` is changed to `'''` since `'` is the
+# actual multiple line syntax.
+##########################
+
+# DefSubsequence
+ 
+[[english.command]]
+name = "DefSubsequence"
+args = ["a", "b"]
+body = '''
+A sequence $#1$ is a subsequence of a sequence $#2$ if $#1$ can be obtained from $#2$ by the deletion of several (possibly, zero or all) element from arbitrary positions.
+'''
+ 
+[[russian.command]]
+name = "DefSubsequence"
+args = ["a", "b"]
+body = '''
+Последовательность $#1$ является подпоследовательностью $#2$, если $#1$ может быть получена из $#2$ удалением нескольких (возможно, ни одного или всех) элементов на произвольных позициях.
+'''
+ 
+# DefSubsegment
+ 
+[[english.command]]
+name = "DefSubsegment"
+args = ["a", "b"]
+body = '''
+A sequence $#1$ is a subsegment of a sequence $#2$ if $#1$ can be obtained from $#2$ by the deletion of several (possibly, zero or all) elements from the beginning and several (possibly, zero or all) elements from the end.
+'''
+ 
+[[russian.command]]
+name = "DefSubsegment"
+args = ["a", "b"]
+body = '''
+Последовательность $#1$ является подотрезком последовательности $#2$, если $#1$ может быть получена из $#2$ удалением нескольких (возможно, ни одного или всех) элементов с начала и нескольких (возможно, ни одного или всех) элементов с конца.
+'''
+ 
+# DefSubarray
+ 
+[[english.command]]
+name = "DefSubarray"
+args = ["a", "b"]
+body = '''
+An array $#1$ is a subarray of an array $#2$ if $#1$ can be obtained from $#2$ by the deletion of several (possibly, zero or all) elements from the beginning and several (possibly, zero or all) elements from the end.
+'''
+ 
+[[russian.command]]
+name = "DefSubarray"
+args = ["a", "b"]
+body = '''
+Массив $#1$ является подмассивом массива $#2$, если $#1$ может быть получен из $#2$ удалением нескольких (возможно, ни одного или всех) элементов с начала и нескольких (возможно, ни одного или всех) элементов с конца.
+'''
+ 
+# DefSubstring
+ 
+[[english.command]]
+name = "DefSubstring"
+args = ["a", "b"]
+body = '''
+A string $#1$ is a substring of a string $#2$ if $#1$ can be obtained from $#2$ by the deletion of several (possibly, zero or all) characters from the beginning and several (possibly, zero or all) characters from the end.
+'''
+ 
+[[russian.command]]
+name = "DefSubstring"
+args = ["a", "b"]
+body = '''
+Строка $#1$ является подстрокой строки $#2$, если $#1$ может быть получена из $#2$ удалением нескольких (возможно, ни одного или всех) символов с начала и нескольких (возможно, ни одного или всех) символов с конца.
+'''
+ 
+# DefSubsequenceInd
+ 
+[[english.command]]
+name = "DefSubsequenceInd"
+args = ["a", "b"]
+body = '''
+A sequence $#1$ is a subsequence of a sequence $#2$ if $#1$ can be obtained from $#2$ by the deletion of several (possibly, zero or all) element from arbitrary positions.
+Two subsequences are considered different if the sets of \textbf{positions} of the deleted elements are different.
+'''
+ 
+[[russian.command]]
+name = "DefSubsequenceInd"
+args = ["a", "b"]
+body = '''
+Последовательность $#1$ является подпоследовательностью $#2$, если $#1$ может быть получена из $#2$ удалением нескольких (возможно, ни одного или всех) элементов на произвольных позициях.
+Две подпоследовательности считаются различными, если различаются множества \textbf{позиций} удаленных элементов.
+'''
+ 
+# DefSubsegmentInd
+ 
+[[english.command]]
+name = "DefSubsegmentInd"
+args = ["a", "b"]
+body = '''
+A sequence $#1$ is a subsegment of a sequence $#2$ if $#1$ can be obtained from $#2$ by the deletion of several (possibly, zero or all) elements from the beginning and several (possibly, zero or all) elements from the end.
+Two subsequences are considered different if the sets of \textbf{positions} of the deleted elements are different.
+'''
+ 
+[[russian.command]]
+name = "DefSubsegmentInd"
+args = ["a", "b"]
+body = '''
+Последовательность $#1$ является подотрезком последовательности $#2$, если $#1$ может быть получена из $#2$ удалением нескольких (возможно, ни одного или всех) элементов с начала и нескольких (возможно, ни одного или всех) элементов с конца.
+Две подпоследовательности считаются различными, если различаются множества \textbf{позиций} удаленных элементов.
+'''
+ 
+# DefSubarrayInd
+ 
+[[english.command]]
+name = "DefSubarrayInd"
+args = ["a", "b"]
+body = '''
+An array $#1$ is a subarray of an array $#2$ if $#1$ can be obtained from $#2$ by the deletion of several (possibly, zero or all) elements from the beginning and several (possibly, zero or all) elements from the end.
+Two subarrays are considered different if the sets of \textbf{positions} of the deleted elements are different.
+'''
+ 
+[[russian.command]]
+name = "DefSubarrayInd"
+args = ["a", "b"]
+body = '''
+Массив $#1$ является подмассивом массива $#2$, если $#1$ может быть получен из $#2$ удалением нескольких (возможно, ни одного или всех) элементов с начала и нескольких (возможно, ни одного или всех) элементов с конца.
+Два подмассива считаются различными, если различаются множества \textbf{позиций} удаленных элементов.
+'''
+ 
+# DefSubstringInd
+ 
+[[english.command]]
+name = "DefSubstringInd"
+args = ["a", "b"]
+body = '''
+A string $#1$ is a substring of a string $#2$ if $#1$ can be obtained from $#2$ by the deletion of several (possibly, zero or all) characters from the beginning and several (possibly, zero or all) characters from the end.
+Two substrings are considered different if the sets of \textbf{positions} of the deleted elements are different.
+'''
+ 
+[[russian.command]]
+name = "DefSubstringInd"
+args = ["a", "b"]
+body = '''
+Строка $#1$ является подстрокой строки $#2$, если $#1$ может быть получена из $#2$ удалением нескольких (возможно, ни одного или всех) символов с начала и нескольких (возможно, ни одного или всех) символов с конца.
+Две подстроки считаются различными, если различаются множества \textbf{позиций} удаленных элементов.
+'''
+ 
+# DefPermutation
+ 
+[[english.command]]
+name = "DefPermutation"
+args = ["n"]
+body = '''
+A permutation of length $#1$ is an array consisting of $#1$ distinct integers from $1$ to $#1$ in arbitrary order. For example, $[2,3,1,5,4]$ is a permutation, but $[1,2,2]$ is not a permutation ($2$ appears twice in the array), and $[1,3,4]$ is also not a permutation ($#1=3$ but there is $4$ in the array).
+'''
+ 
+[[russian.command]]
+name = "DefPermutation"
+args = ["n"]
+body = '''
+Перестановкой длины $#1$ является массив, состоящий из $#1$ различных целых чисел от $1$ до $#1$ в произвольном порядке. Например, $[2,3,1,5,4]$ "--- перестановка, но $[1,2,2]$ не перестановка ($2$ встречается в массиве дважды) и $[1,3,4]$ тоже не перестановка ($#1=3$, но в массиве встречается $4$).
+'''
+ 
+# DefLexMinStr
+ 
+[[english.command]]
+name = "DefLexMinStr"
+args = ["a", "b"]
+body = '''
+A string $#1$ is lexicographically smaller than string $#2$ if and only if one of the following holds:
+\begin{itemize}
+\item $#1$ is a prefix of $#2$, but $#1 \ne #2$; or
+\item in the first position where $#1$ and $#2$ differ, the string $#1$ has a letter that appears earlier in the alphabet than the corresponding letter in $#2$.
+\end{itemize}
+'''
+ 
+[[russian.command]]
+name = "DefLexMinStr"
+args = ["a", "b"]
+body = '''
+Строка $#1$ лексикографически меньше строки $#2$, если и только если выполняется одно из следующего:
+\begin{itemize}
+\item $#1$~--- префикс $#2$, но $#1 \ne #2$; или
+\item в первой позиции, где $#1$ и $#2$ различны, в строке $#1$ находится буква, которая встречается в алфавите раньше, чем соответствующая буква в $#2$.
+\end{itemize}
+'''
+ 
+# DefLexMinSeq
+ 
+[[english.command]]
+name = "DefLexMinSeq"
+args = ["a", "b"]
+body = '''
+A sequence $#1$ is lexicographically smaller than a sequence $#2$ if and only if one of the following holds:
+\begin{itemize}
+\item $#1$ is a prefix of $#2$, but $#1 \ne #2$; or
+\item in the first position where $#1$ and $#2$ differ, the sequence $#1$ has a smaller element than the corresponding element in $#2$.
+\end{itemize}
+'''
+ 
+[[russian.command]]
+name = "DefLexMinSeq"
+args = ["a", "b"]
+body = '''
+Последовательность $#1$ лексикографически меньше последовательности $#2$, если и только если выполняется одно из следующего:
+\begin{itemize}
+\item $#1$~--- префикс $#2$, но $#1 \ne #2$; или
+\item в первой позиции, где $#1$ и $#2$ различны, в последовательности $#1$ элемент меньше, чем соответствующий элемент в $#2$.
+\end{itemize}
+'''
+ 
+# DefLexMinArr
+ 
+[[english.command]]
+name = "DefLexMinArr"
+args = ["a", "b"]
+body = '''
+An array $#1$ is lexicographically smaller than an array $#2$ if and only if one of the following holds:
+\begin{itemize}
+\item $#1$ is a prefix of $#2$, but $#1 \ne #2$; or
+\item in the first position where $#1$ and $#2$ differ, the array $#1$ has a smaller element than the corresponding element in $#2$.
+\end{itemize}
+'''
+ 
+[[russian.command]]
+name = "DefLexMinArr"
+args = ["a", "b"]
+body = '''
+Массив $#1$ лексикографически меньше массива $#2$, если и только если выполняется одно из следующего:
+\begin{itemize}
+\item $#1$~--- префикс $#2$, но $#1 \ne #2$; или
+\item в первой позиции, где $#1$ и $#2$ различны, в массиве $#1$ элемент меньше, чем соответствующий элемент в $#2$.
+\end{itemize}
+'''
+ 
+# DefLexMinStrEqsz
+ 
+[[english.command]]
+name = "DefLexMinStrEqsz"
+args = ["a", "b"]
+body = '''
+A string $#1$ is lexicographically smaller than a string $#2$ of the same length, if and only if the following holds:
+\begin{itemize}
+\item $#1 \ne #2$, and in the first position where $#1$ and $#2$ differ, the string $#1$ has a letter that appears earlier in the alphabet than the corresponding letter in $#2$.
+\end{itemize}
+'''
+ 
+[[russian.command]]
+name = "DefLexMinStrEqsz"
+args = ["a", "b"]
+body = '''
+Строка $#1$ лексикографически меньше строки $#2$ такой же длины, если и только если выполняется следующее:
+\begin{itemize}
+\item $#1 \ne #2$, и в первой позиции, где $#1$ и $#2$ различны, в строке $#1$ находится буква, которая встречается в алфавите раньше, чем соответствующая буква в $#2$.
+\end{itemize}
+'''
+ 
+# DefLexMinSeqEqsz
+ 
+[[english.command]]
+name = "DefLexMinSeqEqsz"
+args = ["a", "b"]
+body = '''
+A sequence $#1$ is lexicographically smaller than a sequence $#2$ of the same length if and only if the following holds:
+\begin{itemize}
+\item $#1 \ne #2$, and in the first position where $#1$ and $#2$ differ, the sequence $#1$ has a smaller element than the corresponding element in $#2$.
+\end{itemize}
+'''
+ 
+[[russian.command]]
+name = "DefLexMinSeqEqsz"
+args = ["a", "b"]
+body = '''
+Последовательность $#1$ лексикографически меньше последовательности $#2$ такой же длины, если и только если выполняется следующее:
+\begin{itemize}
+\item $#1 \ne #2$, и в первой позиции, где $#1$ и $#2$ различны, в последовательности $#1$ элемент меньше, чем соответствующий элемент в $#2$.
+\end{itemize}
+'''
+ 
+# DefLexMinArrEqsz
+ 
+[[english.command]]
+name = "DefLexMinArrEqsz"
+args = ["a", "b"]
+body = '''
+An array $#1$ is lexicographically smaller than an array $#2$ of the same size if and only if the following holds:
+\begin{itemize}
+\item $#1 \ne #2$, and in the first position where $#1$ and $#2$ differ, the array $#1$ has a smaller element than the corresponding element in $#2$.
+\end{itemize}
+'''
+ 
+[[russian.command]]
+name = "DefLexMinArrEqsz"
+args = ["a", "b"]
+body = '''
+Массив $#1$ лексикографически меньше массива $#2$ такого же размера, если и только если выполняется следующее:
+\begin{itemize}
+\item $#1 \ne #2$, и в первой позиции, где $#1$ и $#2$ различны, в массиве $#1$ элемент меньше, чем соответствующий элемент в $#2$.
+\end{itemize}
+'''
+ 
+# DefBitwiseXOR
+ 
+[[english.command]]
+name = "DefBitwiseXOR"
+args = ["\\oplus", "https://en.wikipedia.org/wiki/Bitwise_operation#XOR"]
+body = '''
+$#1$ denotes the \href{#2}{bitwise XOR operation}.
+'''
+ 
+[[russian.command]]
+name = "DefBitwiseXOR"
+args = ["\\oplus", "https://ru.wikipedia.org/wiki/Битовая_операция#Побитовое_исключающее_ИЛИ"]
+body = '''
+$#1$ обозначает операцию \href{#2}{побитового исключающего ИЛИ}.
+'''
+ 
+# DefBitwiseOR
+ 
+[[english.command]]
+name = "DefBitwiseOR"
+args = ["|", "https://en.wikipedia.org/wiki/Bitwise_operation#OR"]
+body = '''
+$#1$ denotes the \href{#2}{bitwise OR operation}.
+'''
+ 
+[[russian.command]]
+name = "DefBitwiseOR"
+args = ["|", "https://ru.wikipedia.org/wiki/Битовая_операция#Побитовое_ИЛИ"]
+body = '''
+$#1$ обозначает операцию \href{#2}{побитового ИЛИ}.
+'''
+ 
+# DefBitwiseAND
+ 
+[[english.command]]
+name = "DefBitwiseAND"
+args = ["\\&", "https://en.wikipedia.org/wiki/Bitwise_operation#AND"]
+body = '''
+$#1$ denotes the \href{#2}{bitwise AND operation}.
+'''
+ 
+[[russian.command]]
+name = "DefBitwiseAND"
+args = ["\\&", "https://ru.wikipedia.org/wiki/Битовая_операция#Побитовое_И"]
+body = '''
+$#1$ обозначает операцию \href{#2}{побитового И}.
+'''
+ 
+# DefGCD
+ 
+[[english.command]]
+name = "DefGCD"
+args = ["x", "y"]
+body = '''
+$\gcd(#1, #2)$ denotes the \href{https://en.wikipedia.org/wiki/Greatest_common_divisor}{greatest common divisor (GCD)} of integers $#1$ and $#2$.
+'''
+ 
+[[russian.command]]
+name = "DefGCD"
+args = ["x", "y"]
+body = '''
+$\gcd(#1, #2)$ обозначает \href{https://ru.wikipedia.org/wiki/Наибольший_общий_делитель}{наибольший общий делитель (НОД)} чисел $#1$ и $#2$.
+'''
+ 
+# DefLCM
+ 
+[[english.command]]
+name = "DefLCM"
+args = ["x", "y"]
+body = '''
+$\operatorname{lcm}(#1, #2)$ denotes the \href{https://en.wikipedia.org/wiki/Least_common_multiple}{lowest common divisor (LCM)} of integers $#1$ and $#2$.
+'''
+ 
+[[russian.command]]
+name = "DefLCM"
+args = ["x", "y"]
+body = '''
+$\operatorname{lcm}(#1, #2)$ обозначает \href{https://ru.wikipedia.org/wiki/Наименьшее_общее_кратное}{наименьшее общее кратное (НОК)} чисел $#1$ и $#2$.
+'''
+ 
+# DefMEX
+ 
+[[english.command]]
+name = "DefMEX"
+args = ["c", "k", "x"]
+body = '''
+$\operatorname{mex}(#1)$ denotes the minimmum excluded (MEX)\footnote{\DefMEXfull[#1][#2][#3]} of the collection $#1$.
+'''
+ 
+[[russian.command]]
+name = "DefMEX"
+args = ["c", "k", "x"]
+body = '''
+$\operatorname{mex}(#1)$ обозначает наименьшее исключенное (MEX)\footnote{\DefMEXfull[#1][#2][#3]} набора чисел $#1$.
+'''
+ 
+# DefMEXfull
+ 
+[[english.command]]
+name = "DefMEXfull"
+args = ["c", "k", "x"]
+body = '''
+The minimum excluded (MEX) of a collection of integers $#1_1, #1_2, \ldots, #1_#2$ is defined as
+the smallest non-negative integer $#3$ which does not occur in the collection $#1$.
+'''
+ 
+[[russian.command]]
+name = "DefMEXfull"
+args = ["c", "k", "x"]
+body = '''
+Наименьшее исключенное (MEX) набора чисел $#1_1, #1_2, \ldots, #1_#2$ определяется как
+наименьшее неотрицательное целое число $#3$, которое не встречается в наборе чисел $#1$.
+'''
+ 
+# DefMOD
+ 
+[[english.command]]
+name = "DefMOD"
+args = ["x", "y"]
+body = '''
+$#1 \bmod #2$ denotes the remainder from dividing $#1$ by $#2$.
+'''
+ 
+[[russian.command]]
+name = "DefMOD"
+args = ["x", "y"]
+body = '''
+$#1 \bmod #2$ обозначает остаток от деления $#1$ на $#2$.
+'''
+ 
+# DefTestcases
+ 
+[[english.command]]
+name = "DefTestcases"
+args = ["t", "10^4"]
+body = '''
+Each test contains multiple test cases.
+The first line contains the number of test cases $#1$ ($1 \le #1 \le #2$).
+The description of the test cases follows.
+'''
+ 
+[[russian.command]]
+name = "DefTestcases"
+args = ["t", "10^4"]
+body = '''
+Каждый тест состоит из нескольких наборов входных данных.
+В первой строке находится одно целое число $#1$ ($1 \le #1 \le #2$)~--- количество наборов входных данных.
+Далее следует описание наборов входных данных.
+'''
+ 
+# DefLimitSum
+ 
+[[english.command]]
+name = "DefLimitSum"
+args = ["n", "10^5"]
+body = '''
+It is guaranteed that the sum of $#1$ over all test cases does not exceed $#2$.
+'''
+ 
+[[russian.command]]
+name = "DefLimitSum"
+args = ["n", "10^5"]
+body = '''
+Гарантируется, что сумма значений $#1$ по всем наборам входных данных не превосходит $#2$.
+'''
+ 
+# DefSubtask
+ 
+[[english.command]]
+name = "DefSubtask"
+args = ["easy", "???"]
+body = '''
+\textbf{This is the #1 version of the problem. The difference between the versions is that in this version, #2. You can hack only if you solved all versions of this problem.}
+'''
+ 
+[[russian.command]]
+name = "DefSubtask"
+args = ["простая", "???"]
+body = '''
+\textbf{Это #1 версия задачи. Отличие между версиями заключается в том, что в этой версии #2. Вы можете делать взломы только в том случае, если решили все версии этой задачи.}
+'''
+ 
+# DefInteractive
+ 
+[[english.command]]
+name = "DefInteractive"
+args = []
+body = '''
+\textit{This is an interactive problem.}
+'''
+ 
+[[russian.command]]
+name = "DefInteractive"
+args = []
+body = '''
+\textit{Это интерактивная задача.}
+'''
+ 
+# DefFlush
+ 
+[[english.command]]
+name = "DefFlush"
+args = ["$-1$"]
+body = '''
+After printing each query do not forget to output the end of line and flush\footnote{To
+flush, use:
+\begin{itemize}
+\item \t{fflush(stdout)} or \t{cout.flush()} in C++;
+\item \t{sys.stdout.flush()} in Python;
+\item see the documentation for
+other languages.
+\end{itemize}} the output. Otherwise, you will get
+\t{Idleness limit exceeded} verdict.
+ 
+If, at any interaction step, you read #1 instead of valid data, your solution must exit immediately.
+This means that your solution will receive \t{Wrong answer} because of an invalid query or any other mistake.
+Failing to exit can result in an arbitrary verdict because your solution will continue to read from a closed stream.
+'''
+ 
+[[russian.command]]
+name = "DefFlush"
+args = ["$-1$"]
+body = '''
+После вывода каждого запроса не забудьте вывести перевод строки и сбросить буфер вывода\footnote{Чтобы сбросить буфер вывода, используйте:
+\begin{itemize}
+\item \t{fflush(stdout)} или \t{cout.flush()} в C++;
+\item \t{sys.stdout.flush()} в Python;
+\item смотрите документацию для других языков.
+\end{itemize}}. В противном случае вы получите вердикт
+\t{Решение <<зависло>>}.
+ 
+На любом шаге взаимодействия, если вы считали #1 вместо корректных данных, ваше решение должно немедленно завершиться.
+Это означает, что ваше решение получит вердикт \t{Неправильный ответ} из-за некорректного запроса или любой другой ошибки.
+Если программа не завершится, вы можете получить любой вердикт, так как ваша программа продолжит чтение из закрытого потока.
+'''
+ 
+# DefPrecision
+ 
+[[english.command]]
+name = "DefPrecision"
+args = ["10^{-9}", "a", "b"]
+body = '''
+Your answer is considered correct if its absolute or relative error does not exceed $#1$.
+ 
+Formally, let your answer be $#2$, and the jury's answer be $#3$.
+Your answer is accepted if and only if $\frac{|#2 - #3|}{\max{(1, |#3|)}} \le #1$.
+'''
+ 
+[[russian.command]]
+name = "DefPrecision"
+args = ["10^{-9}", "a", "b"]
+body = '''
+Ваш ответ будет считаться правильным, если его абсолютная или относительная ошибка не превосходит $#1$.
+ 
+Формально, пусть ваш ответ равен $#2$, а ответ жюри равен $#3$.
+Ваш ответ будет зачтен, если и только если $\frac{|#2 - #3|}{\max{(1, |#3|)}} \le #1$.
+'''
+ 
+# DefModuloFracAnswer
+ 
+[[english.command]]
+name = "DefModuloFracAnswer"
+args = ["998\\,244\\,353", "M", "p", "q", "x"]
+body = '''
+Formally, let $#2 = #1$.
+It can be shown that the exact answer can be expressed as an irreducible fraction $\frac{#3}{#4}$,
+where $#3$ and $#4$ are integers and $#4 \not \equiv 0 \pmod{#2}$.
+Output the integer equal to $#3 \cdot #4^{-1} \bmod #2$.
+In other words, output such an integer $#5$ that $0 \le x < #2$ and $#5 \cdot #4 \equiv #3 \pmod{#2}$.
+'''
+ 
+[[russian.command]]
+name = "DefModuloFracAnswer"
+args = ["998\\,244\\,353", "M", "p", "q", "x"]
+body = '''
+Формально, пусть $#2 = #1$.
+Можно показать, что точный ответ может быть представлен в виде несократимой дроби $\frac{#3}{#4}$,
+где $#3$ и $#4$ "--- целые числа, и $#4 \not \equiv 0 \pmod{#2}$.
+Выведите целое число, равное $#3 \cdot #4^{-1} \bmod #2$.
+Другими словами, выведите такое целое число $#5$, что $0 \le x < #2$ и $#5 \cdot #4 \equiv #3 \pmod{#2}$.
+'''
+ 
+# DefTree
+ 
+[[english.command]]
+name = "DefTree"
+args = []
+body = '''
+A tree is a connected graph without cycles.
+'''
+ 
+[[russian.command]]
+name = "DefTree"
+args = []
+body = '''
+Деревом называется связный граф без циклов.
+'''
+ 
+# DefRootedTree
+ 
+[[english.command]]
+name = "DefRootedTree"
+args = []
+body = '''
+A rooted tree is a tree where one vertex is special and called the root.
+'''
+ 
+[[russian.command]]
+name = "DefRootedTree"
+args = []
+body = '''
+Корневым деревом называется дерево, в котором одна из вершин специальная и называется корнем.
+'''
+ 
+# DefParent
+ 
+[[english.command]]
+name = "DefParent"
+args = ["v"]
+body = '''
+The parent of vertex $#1$ is the first vertex on the simple path from $#1$ to the root. The root has no parent.
+'''
+ 
+[[russian.command]]
+name = "DefParent"
+args = ["v"]
+body = '''
+Родителем вершины $#1$ называется первая вершина на простом пути от $#1$ до корня. У корня нет родителя.
+'''
+ 
+# DefAncestor
+ 
+[[english.command]]
+name = "DefAncestor"
+args = ["v"]
+body = '''
+An ancestor of vertex $#1$ is any vertex on the simple path from $#1$ to the root, including the root, but not including $#1$. The root has no ancestors.
+'''
+ 
+[[russian.command]]
+name = "DefAncestor"
+args = ["v"]
+body = '''
+Предком вершины $#1$ называется любая вершина на пути от $#1$ до корня, включая корень, но не включая $#1$. У корня нет предков.
+'''
+ 
+# DefChild
+ 
+[[english.command]]
+name = "DefChild"
+args = ["v", "u"]
+body = '''
+A child of vertex $#1$ is any vertex $#2$ for which $#1$ is the parent.
+'''
+ 
+[[russian.command]]
+name = "DefChild"
+args = ["v", "u"]
+body = '''
+Ребенком вершины $#1$ называется любая вершина $#2$, для которой $#1$ является родителем.
+'''
+ 
+# DefTreeLeaf
+ 
+[[english.command]]
+name = "DefTreeLeaf"
+args = []
+body = '''
+A leaf is any vertex without children.
+'''
+ 
+[[russian.command]]
+name = "DefTreeLeaf"
+args = []
+body = '''
+Листом называется любая вершина, у которой нет детей.
+'''
+ 
+# DefDescendant
+ 
+[[english.command]]
+name = "DefDescendant"
+args = ["v", "u"]
+body = '''
+A descendant of vertex $#1$ is any vertex $#2$ for which $#1$ is an ancestor. No vertex is its own descendant.
+'''
+ 
+[[russian.command]]
+name = "DefDescendant"
+args = ["v", "u"]
+body = '''
+Потомком вершины $#1$ называется любая вершина $#2$, для которой $#1$ является предком. Никакая вершина не является своим потомком.
+'''
+ 
+# DefSubtree
+ 
+[[english.command]]
+name = "DefSubtree"
+args = ["v"]
+body = '''
+A subtree of vertex $#1$ is the subgraph of $#1$, all its descendants, and all the edges between them.
+'''
+ 
+[[russian.command]]
+name = "DefSubtree"
+args = ["v"]
+body = '''
+Поддеревом вершины $#1$ называется подграф, состоящий из вершины $#1$, всех ее потомком, и всех ребер между ними.
+'''
+ 
+# DefBinaryTree
+ 
+[[english.command]]
+name = "DefBinaryTree"
+args = []
+body = '''
+A binary tree is rooted tree, in which each node has no more than $2$ children.
+'''
+ 
+[[russian.command]]
+name = "DefBinaryTree"
+args = []
+body = '''
+Бинарным деревом называется корневое дерево, в котором у каждой вершины не более $2$ детей.
+'''
+ 
+# DefFullBinaryTree
+ 
+[[english.command]]
+name = "DefFullBinaryTree"
+args = []
+body = '''
+A full binary tree is rooted tree, in which each node has $0$ or $2$ children.
+'''
+ 
+[[russian.command]]
+name = "DefFullBinaryTree"
+args = []
+body = '''
+Полным бинарным деревом называется корневое дерево, в котором у каждой вершины $0$ или $2$ детей.
+'''
+ 
+# DefYesNoCaseInsensitive
+ 
+[[english.command]]
+name = "DefYesNoCaseInsensitive"
+args = []
+body = '''
+You can output the answer in any case (upper or lower). For example, the strings ``\t{yEs}'', ``\t{yes}'', ``\t{Yes}'', and ``\t{YES}'' will be recognized as positive responses.
+'''
+ 
+[[russian.command]]
+name = "DefYesNoCaseInsensitive"
+args = []
+body = '''
+Вы можете выводить каждую букву в любом регистре (строчную или заглавную). Например, строки <<\t{yEs}>>, <<\t{yes}>>, <<\t{Yes}>> и <<\t{YES}>> будут приняты как положительный ответ.
+'''
+ 
+# DefYesNoFull
+ 
+[[english.command]]
+name = "DefYesNoFull"
+args = ["the answer exists"]
+body = '''
+For each test case, output ``\t{YES}'' if #1, and ``\t{NO}'' otherwise.
+ 
+You can output the answer in any case (upper or lower). For example, the strings ``\t{yEs}'', ``\t{yes}'', ``\t{Yes}'', and ``\t{YES}'' will be recognized as positive responses.
+'''
+ 
+[[russian.command]]
+name = "DefYesNoFull"
+args = ["ответ существует"]
+body = '''
+Для каждого набора входных данных выведите <<\t{YES}>>, если #1, и <<\t{NO}>> в противном случае.
+ 
+Вы можете выводить каждую букву в любом регистре (строчную или заглавную). Например, строки <<\t{yEs}>>, <<\t{yes}>>, <<\t{Yes}>> и <<\t{YES}>> будут приняты как положительный ответ.
+'''
+ 
+# Common
+ 
+[[common.command]]
+name = "DefTriangleNumber"
+args = [""]
+body = '''
+\frac{#1\cdot(#1-1)}{2}
+'''
+ 
+##### My Custom Definitions #####
+ 
+# DefFloor
+ 
+[[english.command]]
+name = "DefFloor"
+args = ["x"]
+body = '''
+$\lfloor #1\rfloor$ denotes the \href{https://en.wikipedia.org/wiki/Floor_and_ceiling_functions}{floor} of $#1$, which is the greatest integer less than or equal to $#1$.
+'''
+ 
+[[russian.command]]
+name = "DefFloor"
+args = ["x"]
+body = '''
+Обозначение $\lfloor #1\rfloor$ означает \href{https://en.wikipedia.org/wiki/Floor_and_ceiling_functions}{пол (floor)} от $#1$, то есть наибольшее целое число, не превышающее $#1$.
+'''
+ 
+# DefCeil
+ 
+[[english.command]]
+name = "DefCeil"
+args = ["x"]
+body = '''
+$\lceil #1\rceil$ denotes the \href{https://en.wikipedia.org/wiki/Floor_and_ceiling_functions}{ceiling} of $#1$, which is the smallest integer greater than or equal to $#1$.
+'''
+ 
+[[russian.command]]
+name = "DefCeil"
+args = ["x"]
+body = '''
+Обозначение $\lceil #1\rceil$ означает \href{https://en.wikipedia.org/wiki/Floor_and_ceiling_functions}{потолок (ceiling)} от $#1$, то есть наименьшее целое число, не меньшее $#1$.
+'''
+ 
+# DefSubarrayLR
+ 
+[[english.command]]
+name = "DefSubarrayLR"
+args = ["a", "l", "r"]
+body = '''
+The subarray $#1_{#2 \ldots #3}$ refers to the contiguous segment of the array $#1$ that starts at index $#2$ and ends at index $#3$, i.e., $[#1_#2, #1_{#2+1}, \ldots, #1_#3]$.
+'''
+ 
+[[russian.command]]
+name = "DefSubarrayLR"
+args = ["a", "l", "r"]
+body = '''
+Подмассив $#1_{#2 \ldots #3}$ обозначает непрерывный сегмент массива $#1$, который начинается с индекса $#2$ и заканчивается индексом $#3$, то есть $[#1_#2, #1_{#2+1}, \ldots, #1_#3]$.
+'''
+ 
+#DefNoLimitSum
+ 
+[[english.command]]
+name = "DefNoLimitSum"
+args = ["n"]
+body = '''
+Note that there are no constraints on the sum of $#1$ over all test cases.
+'''
+ 
+[[russian.command]]
+name = "DefNoLimitSum"
+args = ["n"]
+body = '''
+Обратите внимание, что нет ограничения на сумму $#1$ по всем наборам входных данных.
+'''
+
+
