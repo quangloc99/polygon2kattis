@@ -92,6 +92,11 @@ def build_argparser():
                            help='Symlink testlib.h to the specified value (relative to current working directory) instead of copying it.',
                            default='',
                            type=str)
+    argparser.add_argument('--statement-inc-sample', 
+                           help='Add the specified text between the IO format and the sample explanation (mostly to include sample manually)',
+                           default=r'\ifdefined\includeallsample \includeallsample\fi',
+                           type=str
+                           )
     return argparser
 
 
@@ -103,6 +108,7 @@ class Polygon2Kattis:
                  verbose: bool,
                  test_generation_info: bool,
                  symlink_testlib: str,
+                 statement_inc_sample: str,
                  license: str,
                  ):
         self.package_zip_file = package_zip_file
@@ -111,6 +117,7 @@ class Polygon2Kattis:
         self.verbose = verbose
         self.test_generation_info = test_generation_info
         self.symlink_testlib = symlink_testlib
+        self.statement_inc_sample = statement_inc_sample
 
         self.problem_data = ET.fromstringlist(self.package.read('problem.xml').decode())
         self.testlib_path = Path(__file__).parent / 'testlib.h'
@@ -184,6 +191,9 @@ class Polygon2Kattis:
                 print(r'\section*{Output}', file=out)
                 print(p.read_text(), file=out)
                 p.unlink()
+
+            if self.statement_inc_sample != '':
+                print(self.statement_inc_sample, file=out)
                 
             p = self.problem_statement_path / 'notes.tex'
             if p.is_file():
@@ -375,7 +385,8 @@ def main():
             verbose=args.verbose,
             license=args.license,
             test_generation_info=args.test_generation_info,
-            symlink_testlib=args.symlink_testlib
+            symlink_testlib=args.symlink_testlib,
+            statement_inc_sample=args.statement_inc_sample,
             )
     
     print(args.part)
