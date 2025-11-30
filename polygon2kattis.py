@@ -285,6 +285,8 @@ class Polygon2Kattis:
                 sol_out_dir = self.add_folder(submission_path, 'time_limit_exceeded')
             elif tag == 'wrong-answer':
                 sol_out_dir = self.add_folder(submission_path, 'wrong_answer')
+            elif tag == 'memory-limit-exceeded':
+                sol_out_dir = self.add_folder(submission_path, 'run_time_error')
             else:
                 self.log('Skip solution', path, f'of tag {tag}')
                 continue
