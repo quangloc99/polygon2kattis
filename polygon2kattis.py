@@ -260,7 +260,7 @@ class Polygon2Kattis:
                 generation_scripts.append(f'{test_generation_script} > {input_file_name}')
                 self.generator_names.add(test_generation_script.split()[0])
         if self.test_generation_info:
-            path = cur_secret_data_path/ '_gen-test-script'
+            path = cur_secret_data_path / 'gen-test-script.sh'
             disclaimer = textwrap.dedent("""
             # Actual tests were generated on Polygon.
             # This file is generated and not meant to be ran.
