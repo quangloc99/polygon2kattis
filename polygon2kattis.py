@@ -88,6 +88,15 @@ def build_argparser():
                            """),
                            default=False
                            )
+    argparser.add_argument('--symlink-testlib', 
+                           help='Symlink testlib.h to the specified value (relative to current working directory) instead of copying it.',
+                           default='',
+                           type=str)
+    argparser.add_argument('--statement-inc-sample', 
+                           help='Add the specified text between the IO format and the sample explanation (mostly to include sample manually)',
+                           default=r'\ifdefined\includeallsample \includeallsample\fi',
+                           type=str
+                           )
     return argparser
 
 
@@ -98,13 +107,17 @@ class Polygon2Kattis:
                  lang: NamedChoice,
                  verbose: bool,
                  test_generation_info: bool,
-                 license: str
+                 symlink_testlib: str,
+                 statement_inc_sample: str,
+                 license: str,
                  ):
         self.package_zip_file = package_zip_file
         self.package = ZipFile(package_zip_file, 'r')
         self.lang = lang
         self.verbose = verbose
         self.test_generation_info = test_generation_info
+        self.symlink_testlib = symlink_testlib
+        self.statement_inc_sample = statement_inc_sample
 
         self.problem_data = ET.fromstringlist(self.package.read('problem.xml').decode())
         self.testlib_path = Path(__file__).parent / 'testlib.h'
@@ -178,6 +191,9 @@ class Polygon2Kattis:
                 print(r'\section*{Output}', file=out)
                 print(p.read_text(), file=out)
                 p.unlink()
+
+            if self.statement_inc_sample != '':
+                print(self.statement_inc_sample, file=out)
                 
             p = self.problem_statement_path / 'notes.tex'
             if p.is_file():
@@ -254,7 +270,7 @@ class Polygon2Kattis:
                 generation_scripts.append(f'{test_generation_script} > {input_file_name}')
                 self.generator_names.add(test_generation_script.split()[0])
         if self.test_generation_info:
-            path = cur_secret_data_path/ '_gen-test-script'
+            path = cur_secret_data_path / 'gen-test-script.sh'
             disclaimer = textwrap.dedent("""
             # Actual tests were generated on Polygon.
             # This file is generated and not meant to be ran.
@@ -279,6 +295,8 @@ class Polygon2Kattis:
                 sol_out_dir = self.add_folder(submission_path, 'time_limit_exceeded')
             elif tag == 'wrong-answer':
                 sol_out_dir = self.add_folder(submission_path, 'wrong_answer')
+            elif tag == 'memory-limit-exceeded':
+                sol_out_dir = self.add_folder(submission_path, 'run_time_error')
             else:
                 self.log('Skip solution', path, f'of tag {tag}')
                 continue
@@ -306,7 +324,7 @@ class Polygon2Kattis:
         checker_out_dir = self.add_folder(self.out_dir, 'output_validators', 'checker')
         self.extract_package_member_to(source_path, checker_out_dir / Path(source_path).name)
         if 'cpp' in source_tag.get('type', ''):
-            shutil.copy(self.testlib_path, checker_out_dir)
+            self._put_testlib_to(checker_out_dir)
     
     def _process_validator(self):
         validator_tags = self.problem_data.findall('./assets/validators/validator')
@@ -320,7 +338,7 @@ class Polygon2Kattis:
         validator_out_dir = self.add_folder(self.out_dir, 'input_validators', 'extracted_validator')
         self.extract_package_member_to(source_path, validator_out_dir / Path(source_path).name)
         if 'cpp' in source_tag.get('type', ''):
-            shutil.copy(self.testlib_path, validator_out_dir)
+            self._put_testlib_to(validator_out_dir)
             
     def _process_interactor(self):
         # TODO
@@ -346,6 +364,17 @@ class Polygon2Kattis:
                     print('validation:', file=f)
                     print('  validator_flags: float_tolerance 1e-9', file=f)
 
+    def _put_testlib_to(self, path: Path):
+        if self.symlink_testlib == '':
+            self.log(f'Copying testlib.h to {path}')
+            shutil.copy(self.testlib_path, path)
+        else:
+            target_path = path / 'testlib.h'
+            symlink_path = Path('.').relative_to(path, walk_up=True) / Path(self.symlink_testlib)
+            target_path.unlink(missing_ok=True)
+            target_path.symlink_to(symlink_path)
+            self.log(f'Symlinked testlib.h to {target_path} -> {symlink_path}')
+
 def main():
     args = build_argparser().parse_args()
     # print(args)
@@ -355,7 +384,9 @@ def main():
             lang=args.lang,
             verbose=args.verbose,
             license=args.license,
-            test_generation_info=args.test_generation_info
+            test_generation_info=args.test_generation_info,
+            symlink_testlib=args.symlink_testlib,
+            statement_inc_sample=args.statement_inc_sample,
             )
     
     print(args.part)
